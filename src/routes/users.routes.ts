@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { parseISO } from 'date-fns';
 import CreateUserService from '../services/CreateUserService';
 
 const usersRouter = Router();
