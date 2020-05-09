@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import AppError from '../errors/AppError';
 import User from '../models/User';
 import authConfig from '../config/Auth';
 
@@ -22,11 +23,11 @@ class AuthenticateUserService {
     });
 
     if (!userExists) {
-      throw new Error('Incorrect email or password combination.');
+      throw new AppError('Incorrect email or password combination.');
     }
     const passwordMatch = await compare(password, userExists.password);
     if (!passwordMatch) {
-      throw new Error('Incorrect email or password combination.');
+      throw new AppError('Incorrect email or password combination.');
     }
 
     delete userExists.password;
