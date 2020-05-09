@@ -23,11 +23,11 @@ class AuthenticateUserService {
     });
 
     if (!userExists) {
-      throw new AppError('Incorrect email or password combination.');
+      throw new AppError('Incorrect email or password combination.', 401);
     }
     const passwordMatch = await compare(password, userExists.password);
     if (!passwordMatch) {
-      throw new AppError('Incorrect email or password combination.');
+      throw new AppError('Incorrect email or password combination.', 401);
     }
 
     delete userExists.password;
