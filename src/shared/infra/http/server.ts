@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
+import '@shared/infra/typeorm/';
+import '@shared/container';
 import 'express-async-errors';
 import cors from 'cors';
 import uploadConfig from '@shared/config/upload';
 import AppError from '@shared/errors/AppError';
 import routes from './routes';
-import '@shared/infra/typeorm/';
-import '@shared/container';
 
 const app = express();
 app.use(cors());
@@ -28,6 +28,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   });
 });
 
-app.listen(3333, () => {
-  console.log('📡 Back-end started on port 3333!');
+app.listen(3333, async () => {
+  console.log('🚀️  Back-end started on port 3333!');
 });
