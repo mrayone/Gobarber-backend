@@ -18,8 +18,9 @@ export default class FakeUsersRepository implements IUsersRepository {
     return userFinded || undefined;
   }
 
-  public async save(user: ICreateUserDTO): Promise<User | undefined> {
-    const newUser = Object.assign(new User(), { id: uuid() }, user);
+  public async save(userData: ICreateUserDTO): Promise<User | undefined> {
+    const user = new User();
+    const newUser = Object.assign(user, { id: uuid(), ...userData });
 
     this.users.push(newUser);
 
