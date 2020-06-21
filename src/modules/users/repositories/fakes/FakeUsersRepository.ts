@@ -24,6 +24,6 @@ export default class FakeUsersRepository implements IUsersRepository {
 
     this.users.push(newUser);
 
-    return newUser || undefined;
+    return newUser;
   }
 }

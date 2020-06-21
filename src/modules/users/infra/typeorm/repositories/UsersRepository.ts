@@ -24,11 +24,11 @@ export default class UsersRepository implements IUsersRepository {
     return user || undefined;
   }
 
-  public async save(user: ICreateUserDTO): Promise<User | undefined> {
+  public async save(user: ICreateUserDTO): Promise<User> {
     const newUser = this.ormRepository.create(user);
 
     await this.ormRepository.save(newUser);
 
-    return newUser || undefined;
+    return newUser;
   }
 }
