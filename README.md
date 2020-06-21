@@ -16,6 +16,7 @@
 
 - O link enviado por e-mail para redefinição de senha, deve expirar em 2h;
 - O usuário precisa informar uma senha válida de acordo com as regras de validação;
+- Identificar o usuário no link de reset para manter a segurança, para o link servir apenas para o usuário que o requisitou.
 
 # Atualização do perfil
 
