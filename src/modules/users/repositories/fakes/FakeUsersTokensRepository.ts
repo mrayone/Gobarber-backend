@@ -12,10 +12,16 @@ export default class FakeUsersTokensRepository
       id: uuid(),
       user_id,
       token: uuid(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     this.usersTokens.push(userToken);
 
     return userToken;
+  }
+
+  public async findByToken(token: string): Promise<UserToken | undefined> {
+    return this.usersTokens.find(userToken => userToken.token === token);
   }
 }
