@@ -20,13 +20,13 @@ class SendForgotPasswordEmailService {
   public async execute({ email }: IRequest): Promise<void> {
     const findedUser = await this.usersRepository.findByEmail(email);
 
-    if (!findedUser) throw new AppError('User this not exists');
+    if (!findedUser) throw new AppError('The User do not exists');
 
-    this.usersTokensRepository.generate(findedUser.id);
+    const { token } = await this.usersTokensRepository.generate(findedUser.id);
 
-    this.mailProvider.sendMail(
+    await this.mailProvider.sendMail(
       email,
-      'Pedido de recuperação de senha recebido',
+      `Pedido de recuperação de senha recebido: ${token}`,
     );
   }
 }
