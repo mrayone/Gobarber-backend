@@ -30,7 +30,9 @@
 
 - O usuário não pode alterar o seu e-mail para um email já utilizado;
 - Para atualizar a sua senha, o usuário deve informar a sua senha atual;
-- Para atualizar a sua senha, o usuário deve fornecer a confirmação de senha identica a nova senha;
+  - Validação se senha fornecida combina com atual;
+  - Validação de senha fornecida;
+- Para atualizar a sua senha, o usuário deve fornecer a confirmação de senha identica a nova senha (validação na controller);
 
 # Painel do prestador
 
