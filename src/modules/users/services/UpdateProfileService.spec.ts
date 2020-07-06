@@ -91,4 +91,16 @@ describe('UpdateProfileService', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('Should not be update when user not founded', async () => {
+    await expect(
+      updateProfileService.execute({
+        user_id: 'not-id-provided',
+        name: 'John Trê',
+        email: 'john.tre@example.com',
+        old_password: 'wrong-old-password',
+        password: '1234567',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
