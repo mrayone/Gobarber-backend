@@ -1,4 +1,3 @@
-import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import ShowProfileService from './ShowProfileService';
 
@@ -22,17 +21,5 @@ describe('UpdateProfileService', () => {
 
     expect(userProfile?.name).toBe(user?.name);
     expect(userProfile?.email).toBe(user?.email);
-  });
-
-  it('Should be able see profile', async () => {
-    await fakeUsersRepository.save({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: '123456',
-    });
-
-    await expect(
-      showProfileService.execute('not-provided-id'),
-    ).rejects.toBeInstanceOf(AppError);
   });
 });
