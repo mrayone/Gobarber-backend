@@ -22,11 +22,12 @@ class AppointmentsController {
       CreateAppointmentService,
     );
     const { providerId, date } = request.body;
-
+    const { id: userId } = request.user;
     const parsedDate = parseISO(date);
 
     const appointment = await createAppointmentService.execute({
       providerId,
+      userId,
       date: parsedDate,
     });
 

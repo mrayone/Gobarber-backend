@@ -15,10 +15,12 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   public async save({
     date,
+    userId,
     providerId,
   }: ICreateAppointmentDTO): Promise<Appointment | undefined> {
     const appointment = this.ormRepository.create({
       date,
+      userId,
       providerId,
     });
 

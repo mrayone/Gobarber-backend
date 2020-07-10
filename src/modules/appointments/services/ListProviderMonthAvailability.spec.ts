@@ -16,6 +16,7 @@ describe('ListProviderMonthAvailability', () => {
     // agendamento das 8 as 17
     await fakeAppointmentsRepository.save({
       providerId: 'user',
+      userId: 'user',
       date: new Date(2020, 4, 20, 9, 0, 0),
     });
     const availableHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
@@ -26,6 +27,7 @@ describe('ListProviderMonthAvailability', () => {
       (_, index) =>
         fakeAppointmentsRepository.save({
           providerId: 'user',
+          userId: 'user',
           date: new Date(2020, 4, 22, availableHours[index], 0, 0),
         }),
     );
