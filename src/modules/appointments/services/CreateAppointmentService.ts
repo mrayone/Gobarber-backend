@@ -1,4 +1,4 @@
-import { startOfHour } from 'date-fns';
+import { startOfHour, isBefore, getHours } from 'date-fns';
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 
@@ -9,6 +9,12 @@ interface IRequest {
   providerId: string;
   userId: string;
   date: Date;
+}
+
+interface IValidate {
+  appointmentDate: Date;
+  providerId: string;
+  userId: string;
 }
 
 @injectable()
@@ -25,13 +31,7 @@ class CreateAppointmentService {
   }: IRequest): Promise<Appoitment | undefined> {
     const appointmentDate = startOfHour(date);
 
-    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
-      appointmentDate,
-    );
-
-    if (findAppointmentInSameDate) {
-      throw new AppError('This appointment is already booked');
-    }
+    await this.validate({ appointmentDate, userId, providerId });
 
     const appointment = await this.appointmentsRepository.save({
       date: appointmentDate,
@@ -40,6 +40,32 @@ class CreateAppointmentService {
     });
 
     return appointment;
+  }
+
+  private async validate({
+    appointmentDate,
+    userId,
+    providerId,
+  }: IValidate): Promise<void> {
+    const dateNow = Date.now();
+    if (isBefore(appointmentDate, dateNow))
+      throw new AppError("You can't create appointment with past date");
+
+    if (getHours(appointmentDate) < 8 || getHours(appointmentDate) > 17)
+      throw new AppError(
+        "You can't create appointment before 8am or after 5pm",
+      );
+
+    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
+      appointmentDate,
+    );
+
+    if (findAppointmentInSameDate) {
+      throw new AppError('This appointment is already booked');
+    }
+
+    if (userId === providerId)
+      throw new AppError("You can't create an appointment with yourself");
   }
 }
 
