@@ -49,8 +49,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   public async findAllInMonthFromProvider({
     provider_id,
-    year,
     month,
+    year,
   }: IFindAllInMonthProvider): Promise<Appointment[]> {
     const parseMonth = String(month).padStart(2, '0');
 
@@ -59,7 +59,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
         providerId: provider_id,
         date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName}, 'MM-YYYY') = ${parseMonth}-${year}`,
+            `to_char(${dateFieldName}, 'MM-YYYY') = '${parseMonth}-${year}'`,
         ),
       },
     });
@@ -81,7 +81,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
         providerId: provider_id,
         date: Raw(
           dateFieldName =>
-            `to_char(${dateFieldName}, 'DD-MM-YYYY') = ${parseDay}-${parseMonth}-${year}`,
+            `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parseDay}-${parseMonth}-${year}'`,
         ),
       },
     });
