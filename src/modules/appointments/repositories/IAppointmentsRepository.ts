@@ -10,5 +10,5 @@ export default interface IAppointmentsRepository {
   ): Promise<Appointment[]>;
   findAllInDayFromProvider(date: IFindAllInDayProvider): Promise<Appointment[]>;
   findByProviderId(provider_id: string): Promise<Appointment[] | undefined>;
-  save(appointment: ICreateAppointmentDTO): Promise<Appointment | undefined>;
+  save(appointment: ICreateAppointmentDTO): Promise<Appointment>;
 }

@@ -14,14 +14,14 @@ class FakeAppointmentsRepository implements IAppointmentsRepository {
     date,
     userId,
     providerId,
-  }: ICreateAppointmentDTO): Promise<Appointment | undefined> {
+  }: ICreateAppointmentDTO): Promise<Appointment> {
     const appointment = new Appointment();
 
     Object.assign(appointment, { id: uuid(), date, providerId, userId });
 
     this.appointments.push(appointment);
 
-    return appointment || undefined;
+    return appointment;
   }
 
   public async findByProviderId(
