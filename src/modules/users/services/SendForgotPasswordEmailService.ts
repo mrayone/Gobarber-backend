@@ -43,7 +43,7 @@ class SendForgotPasswordEmailService {
         variables: {
           token,
           name: findedUser.name,
-          link: `http://localhost:3000/reset_passwod?token=${token}`,
+          link: `${process.env.APP_WEB_URL}/reset_passwod?token=${token}`,
         },
       },
     });
