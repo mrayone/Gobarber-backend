@@ -2,7 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
 
-const tempDir = path.resolve(__dirname, '../', '../', 'temp');
+const tempDir = path.resolve(__dirname, '../', '../', 'temp', 'uploads');
 export default {
   tempFolder: tempDir,
   uploadsFolder: path.resolve(__dirname, '../', '../', 'temp', 'uploads'),
