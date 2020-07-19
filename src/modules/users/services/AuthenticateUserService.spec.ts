@@ -1,29 +1,23 @@
 import AppError from '@shared/errors/AppError';
-import CreateUserService from './CreateUserService';
 import AuthenticateUserService from './AuthenticateUserService';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
-let createUsersService: CreateUserService;
 let authenticateUserService: AuthenticateUserService;
 
 describe('AuthenticateUserService', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
-    createUsersService = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
     authenticateUserService = new AuthenticateUserService(
       fakeUsersRepository,
       fakeHashProvider,
     );
   });
   it('Should be able to authenticate user', async () => {
-    await createUsersService.execute({
+    await fakeUsersRepository.save({
       email: 'john.doe@gmail.com',
       name: 'John Doe',
       password: '124578',
@@ -47,7 +41,7 @@ describe('AuthenticateUserService', () => {
   });
 
   it('Should not be able autenthicate when email and password not match', async () => {
-    await createUsersService.execute({
+    await fakeUsersRepository.save({
       email: 'john.doe@gmail.com',
       name: 'John Doe',
       password: '124578',
