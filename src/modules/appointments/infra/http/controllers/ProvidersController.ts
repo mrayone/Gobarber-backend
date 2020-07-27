@@ -1,21 +1,16 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import ListProvidersService from '@modules/appointments/services/ListProvidersService';
+import { classToClass } from 'class-transformer';
 
 class ProvidersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { id: providerId } = request.user;
 
     const listProvidersService = container.resolve(ListProvidersService);
-    let providers = await listProvidersService.execute(providerId);
+    const providers = await listProvidersService.execute(providerId);
 
-    providers = providers.map(provider => {
-      const providerWithoutPassword = provider;
-      delete providerWithoutPassword.password;
-      return providerWithoutPassword;
-    });
-
-    return response.json(providers);
+    return response.json(classToClass(providers));
   }
 }
 
