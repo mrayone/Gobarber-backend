@@ -3,3 +3,6 @@ temp/*
 !temp/.gitkeep
 .env
 ormconfig.json
+coverage
+dist
+yarn-error.log
